@@ -7,23 +7,12 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const FILE = "data.json"
+const PORT = process.env.PORT || 3000
 
-app.get("/api/items", (req, res) => {
-    const data = JSON.parse(fs.readFileSync(FILE))
-    res.json(data)
+app.get("/api/test", (req,res)=>{
+    res.json({message:"backend online"})
 })
 
-app.post("/api/items", (req, res) => {
-    const data = JSON.parse(fs.readFileSync(FILE))
-
-    data.push(req.body)
-
-    fs.writeFileSync(FILE, JSON.stringify(data))
-
-    res.json({ message: "item aggiunto" })
-})
-
-app.listen(3000, () => {
-    console.log("Server running")
+app.listen(PORT, ()=>{
+    console.log("Server running on port " + PORT)
 })
